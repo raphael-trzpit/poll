@@ -13,9 +13,16 @@ install:
   - echo $GCLOUD_SERVICE_KEY > key.json
   - gcloud auth activate-service-account --key-file key.json
 
-script:
-  - make deploy
-  - gsutil cp release.zip $GCLOUD_ARTEFACTS_BUCKET/$TRAVIS_TAG.zip
+jobs:
+  include:
+   - stage: deploy
+     script:
+      - make build-deploy
+      - gsutil cp release.zip $GCLOUD_ARTEFACTS_BUCKET/$TRAVIS_TAG.zip
+
+stages:
+  - name: deploy
+    if: tag =~ /^[a-zA-Z0-9\-]+$/
 
 cache:
   directories:
