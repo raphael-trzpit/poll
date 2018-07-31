@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"google.golang.org/appengine"
+	"github.com/raphael-trzpit/poll/internal"
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +15,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintln(w, "Hello, Gopher Network!")
+	fmt.Fprintln(w, internal.Str)
 	fmt.Fprintln(w, os.Getenv("TEST"))
 }
 
