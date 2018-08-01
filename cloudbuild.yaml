@@ -1,14 +1,7 @@
 steps:
-- name: 'gcr.io/cloud-builders/curl'
-  entrypoint: '/bin/sh'
-  args:
-    - '-c'
-    - |
-      mkdir tmp
-      curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-      ./tmp/dep ensure -v
-  env:
-    - 'INSTALL_DIRECTORY=/workspace/tmp'
+- name: 'gcr.io/$PROJECT_ID/dep'
+  args:  ['ensure', '-v']
+  env: ['PROJECT_ROOT=github.com/raphael-trzpit/poll']
 - name: 'gcr.io/$PROJECT_ID/make'
   args: ['prepare-deploy']
 - name: 'gcr.io/cloud-builders/gcloud'
