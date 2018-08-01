@@ -17,6 +17,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintln(w, internal.Str)
 	fmt.Fprintln(w, os.Getenv("TEST"))
+	fmt.Fprintln(w, os.Getenv("SECRETTEST"))
 }
 
 func main() {

@@ -1,5 +1,17 @@
 steps:
-- name: 'gcr.io/cloud-builders/go'
-  args: ['install', '.']
+- name: 'gcr.io/cloud-builders/curl'
+  entrypoint: '/bin/sh'
+  args:
+    - '-c'
+    - |
+      mkdir tmp
+      curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+      ./tmp/dep ensure -v
+  env:
+    - 'INSTALL_DIRECTORY=/workspace/tmp'
+- name: 'gcr.io/$PROJECT_ID/make'
+  args: ['prepare-deploy']
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['app', 'deploy']
+  args: ['app', 'deploy', '--no-promote', '--version=1-7', 'src/app.yaml']
+  env:
+    - 'GOPATH=/workspace'

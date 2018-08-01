@@ -12,3 +12,6 @@
 *.out
 
 vendor/
+
+# This is the 'build' folder when deploying to app engine.
+src/
